@@ -37,7 +37,13 @@
                     {% if display_follow %}
                     <li class="list-group-item">
                         &nbsp; <strong class="pull-right"><a
-                            href="{{ url_for('follow', username=current_user.username) }}">FOLLOW</a></strong>
+                            href="{{ url_for('follow', username=current_user.username) }}"><i class="fa-solid fa-person-circle-plus"></i>FOLLOW</a></strong>
+                    </li>
+                    {% endif %}
+                    {% if display_unfollow %}
+                    <li class="list-group-item">
+                        &nbsp; <strong class="pull-right"><a
+                            href="{{ url_for('unfollow', username=current_user.username) }}"><i class="fa-solid fa-person-circle-minus"></i>UN-FOLLOW</a></strong>
                     </li>
                     {% endif %}
                 </ul>
@@ -115,9 +121,9 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="newTweetLabel">New Message</h5>
                 </div>
-
+<form action="{{ url_for('post_tweet') }}" method="POST">
                 <div class="modal-body">
-                    <form action="{{ url_for('post_tweet') }}" method="POST">
+
                         <div class="row">
                             <div class="col-lg-8 col-lg-offset-2">
                                 <div class="form-group">
@@ -130,17 +136,18 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">
                         <i class="fa-solid fa-ban-circle"></i> Close
                     </button>
+
                     <button type="submit" class="btn btn-primary">
                         <i class="fa-solid fa-send"></i> Post
                     </button>
                 </div>
-
+</form>
             </div>
         </div>
     </div>

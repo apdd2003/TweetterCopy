@@ -48,6 +48,11 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+@app.route('/test')
+def test():
+    form= TweetForm()
+    return  render_template('test.html', form=form)
+
 @app.route('/')
 def index():
     pass
@@ -122,30 +127,28 @@ def profile(username):
         user = User.query.filter_by(username=username).first()
         if not user:
             abort(404)
-        # tweets = Tweet.query.filter_by(user=user).order_by(Tweet.date_created.desc()).all()
-        # total_tweets = len(tweets)
+
     else:
         user = current_user
     tweets = Tweet.query.filter_by(user=user).order_by(Tweet.date_created.desc()).all()
-        # tweets = Tweet.query.join(followers, (followers.c.followee_id == Tweet.user_id)).filter(
-        #     followers.c.follower_id == current_user.id).order_by(Tweet.date_created.desc()).all()
-        # total_tweets = Tweet.query.filter_by(user=user).order_by(Tweet.date_created.desc()).count()
 
     followed_by = user.followed_by.all()
 
-
     display_follow = True
+    display_unfollow = False
 
     if current_user == user:
         display_follow = False
     elif current_user in followed_by:
         display_follow = False
+        display_unfollow = True
 
     current_time = datetime.now()
     follow_suggestions = follow_suggest_list(user)
 
     return render_template('profile.html', current_user=user, form=form, tweets=tweets, current_time=current_time,
-                           display_follow=display_follow, followed_by=followed_by, follow_suggestions=follow_suggestions)
+                           display_follow=display_follow, followed_by=followed_by, follow_suggestions=follow_suggestions,
+                           display_unfollow=display_unfollow)
 
 
 @app.route('/timeline', defaults={'username' : None})
@@ -198,6 +201,18 @@ def follow(username):
     user_to_follow = User.query.filter_by(username=username).first()
 
     current_user.following.append(user_to_follow)
+
+    db.session.commit()
+
+    return redirect(url_for('profile'))
+
+
+@app.route('/unfollow/<username>')
+@login_required
+def unfollow(username):
+    user_to_follow = User.query.filter_by(username=username).first()
+
+    current_user.following.remove(user_to_follow)
 
     db.session.commit()
 
