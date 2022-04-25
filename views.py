@@ -19,6 +19,10 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+def follow_suggest_list(user):
+    return User.query.filter(User.id != user.id).order_by(db.func.random()).limit(4).all()
+
+
 def upload_image(file, username):
     if file is None:
         flash('No image selected for uploading')
@@ -129,6 +133,7 @@ def profile(username):
 
     followed_by = user.followed_by.all()
 
+
     display_follow = True
 
     if current_user == user:
@@ -137,10 +142,10 @@ def profile(username):
         display_follow = False
 
     current_time = datetime.now()
+    follow_suggestions = follow_suggest_list(user)
 
     return render_template('profile.html', current_user=user, form=form, tweets=tweets, current_time=current_time,
-                           display_follow=display_follow, followed_by=followed_by)
-
+                           display_follow=display_follow, followed_by=followed_by, follow_suggestions=follow_suggestions)
 
 
 @app.route('/timeline', defaults={'username' : None})
@@ -165,11 +170,11 @@ def timeline(username):
 
     followed_by_count = user.followed_by.count()
 
-    # who_to_watch = who_to_watch_list(user)
+    follow_suggestions = follow_suggest_list(user)
 
     return render_template('timeline.html', form=form, tweets=tweets, current_time=current_time, current_user=user,
-                           total_tweets=total_tweets, logged_in_user=current_user, followed_by_count=followed_by_count)
-
+                           total_tweets=total_tweets, logged_in_user=current_user,
+                           followed_by_count=followed_by_count, follow_suggestions=follow_suggestions)
 
 
 @app.route('/post_tweet', methods=['GET', 'POST'])

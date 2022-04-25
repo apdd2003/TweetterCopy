@@ -59,7 +59,7 @@
                 <div class="col-lg-6">
                     <div class="row pad">
                         <div class="col-lg-2">
-                            <img src="{{ url_for('static',filename = tweet.user.image) }}" class="img-circle" style="width: 60px; height: 60px; "/>
+                            <img src="{{ url_for('static',filename = tweet.user.image) }}" class="rounded-circle" style="width: 60px; height: 60px; "/>
                         </div>
                         <div class="col-lg-9" style="margin-left: 20px;">
                             <div>
@@ -79,6 +79,26 @@
 
 
         </div>
+<div class="col-lg-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3>Follow Suggestions</h3>
+						</div>
+						<ul class="list-group">
+							{% for user in follow_suggestions %}
+								<li class="list-group-item">
+									{{ user.name }}
+									<div>
+										<strong><a href="{{ url_for('profile', username=user.username) }}">@{{ user.username }}</a></strong>
+										<span class="pull-right">
+											{{ user.followed_by.all()|length }} Followers
+										</span>
+									</div>
+								</li>
+						    {% endfor %}
+						</ul>
+					</div>
+				</div>
     </div>
 
 
