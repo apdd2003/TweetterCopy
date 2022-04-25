@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container loginform mt-5 d-flex justify-content-center" >
+    <form method="POST" action="{{url_for('login')}}" novalidate="True">
+        {{ form.csrf_token }}
+    <div class="form-outline mb-4">
+        {{ form.username.label }}{{ form.username(class="form-control") }}
+    </div>
+        <div class="form-outline mb-4">
+        {{ form.password.label}}{{ form.password(class="form-control") }}
+        </div>
+
+
+        {{form.submit( class="btn btn-dark mb-4 ")}}
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+<div class="row profile-background">
+
+        <div class="col-lg-12">
+            <h3 class="text-center bold">Time Line</h3>
+        </div>
+        <!-- User main avatar -->
+        <div class="col-lg-4">
+
+
+            <div class="col-lg-12">
+                <img src="{{ url_for('static', filename=current_user.image) }}"
+                     class="rounded-circle center-block img-responsive" alt="Profile Image"
+                     style="height: 220px; width: 220px;">
+
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="fa-solid fa-user"></span> NAME:
+                        <strong class="pull-right">{{ current_user.name }}</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-th"></i> Handle:
+                        <strong class="pull-right"><em>@{{ current_user.username }}</em></strong>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-calendar"></i> MEMBER SINCE:
+                        <strong class="pull-right">{{ current_user.join_date.strftime('%B %d, %Y') }}</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-th-list"></i> FOLLOWERS COUNT:
+                        <strong class="pull-right">{{ followed_by|length }}</strong>
+                    </li>
+                    {% if display_follow %}
+                    <li class="list-group-item">
+                        &nbsp; <strong class="pull-right"><a
+                            href="{{ url_for('follow', username=current_user.username) }}">FOLLOW</a></strong>
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="list-group">
+                    <a class="list-group-item" data-toggle="modal" href="{{ url_for('post_tweet') }}"  data-backdrop="static" data-keboard="false">
+                        <i class="fa-solid fa-plus-sign"></i> Post New Tweet
+                    </a>
+                   <!-- Button trigger modal -->
+
+                </ul>
+
+
+            </div>
+        </div>
+        <div class="col-lg-6 activity-panel">
+            <h4 class="text-left"><strong>Activity</strong></h4>
+            {% for tweet in tweets %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row pad">
+                        <div class="col-lg-2">
+                            <img src="{{ url_for('static',filename = tweet.user.image) }}" class="img-circle" style="width: 60px; height: 60px; "/>
+                        </div>
+                        <div class="col-lg-9" style="margin-left: 20px;">
+                            <div>
+                                <strong class="mid">{{ tweet.user.name }}</strong>
+                                <small><em><a href="{{ url_for('profile', username=tweet.user.username) }}">@{{
+                                    tweet.user.username }}</a></em></small>
+                                {{ (current_time - tweet.date_created)|time_ago }}
+                            </div>
+                            <div class="pad">
+                                {{ tweet.text }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

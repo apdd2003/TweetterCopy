@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap');
+
+body {
+    font-family: Ubuntu, verdana, georgia, serif, sans-serif;
+    background-image: url('bg-dark.jpg');
+    background-size:cover;
+    min-height: 120vh;
+    color: #585757;
+
+}
+
+form{
+    padding-bottom : 10px
+}
+.list-group-item{
+    color: #666666;
+     background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3));
+
+}
+.activity-panel{
+     color: #666666;
+     background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3));
+}
+.form-control{
+    color: #585757;
+}
+.headline{
+    font-size: 4rem;
+    text-shadow: 3px 0 currentColor;
+    font-weight:bold;
+    letter-spacing: 3px;
+    text-align: center;
+    margin: 0;
+    padding-top: 50px;
+    width: 100%;
+    color: #FD5D5D;
+    display: block;
+
+
+}
+.navbar{
+ background-image: url('bg-dark.jpg');
+    background-size:cover;
+}
+
+.banner-top
+{
+color: #666666;
+     background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1));
+    margin-right: 0;
+    margin-left: 0;
+
+}
+.sub-headline{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    color: #A64B2A;
+
+    
+}
+
+
+
+footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+}

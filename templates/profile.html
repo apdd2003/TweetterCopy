@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row profile-background">
+
+        <div class="col-lg-12">
+            <h3 class="text-center bold">My Profile</h3>
+        </div>
+        <!-- User main avatar -->
+        <div class="col-lg-4">
+
+
+            <div class="col-lg-12">
+                <img src="{{ url_for('static', filename=current_user.image) }}"
+                     class="rounded-circle center-block img-responsive" alt="Profile Image"
+                     style="height: 220px; width: 220px;">
+
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="fa-solid fa-user"></span> NAME:
+                        <strong class="pull-right">{{ current_user.name }}</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-th"></i> Handle:
+                        <strong class="pull-right"><em>@{{ current_user.username }}</em></strong>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-calendar"></i> MEMBER SINCE:
+                        <strong class="pull-right">{{ current_user.join_date.strftime('%B %d, %Y') }}</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa-solid fa-th-list"></i> FOLLOWERS COUNT:
+                        <strong class="pull-right">{{ followed_by|length }}</strong>
+                    </li>
+                    {% if display_follow %}
+                    <li class="list-group-item">
+                        &nbsp; <strong class="pull-right"><a
+                            href="{{ url_for('follow', username=current_user.username) }}">FOLLOW</a></strong>
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="list-group">
+<!--                    <a class="list-group-item" data-toggle="modal" href="#newTweet"-->
+<!--                       data-backdrop="static" data-keboard="false">-->
+<!--                        <i class="fa-solid fa-plus-sign"></i> Post New Tweet-->
+<!--                    </a>-->
+                      <button type="button" class="btn btn-link list-group-item" data-bs-toggle="modal" data-bs-target="#newTweet">
+                       <i class="fa-solid fa-plus"></i>Post New Tweet
+                    </button>
+
+
+                </ul>
+
+
+
+            </div>
+        </div>
+        <div class="col-lg-6 activity-panel">
+            <h4 class="text-left"><strong>Activity</strong></h4>
+            {% for tweet in tweets %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row pad">
+                        <div class="col-lg-2">
+                            <img src="{{ url_for('static',filename = tweet.user.image) }}" class="img-circle"
+                                 style="width: 60px; height: 60px; "/>
+                        </div>
+                        <div class="col-lg-9" style="margin-left: 15px;">
+                            <div>
+                                <strong class="mid">{{ tweet.user.name }}</strong>
+                                <small><em><a href="{{ url_for('profile', username=tweet.user.username) }}">@{{
+                                    tweet.user.username }}</a></em></small>
+                                {{ (current_time - tweet.date_created)|time_ago }}
+                            </div>
+                            <div class="pad">
+                                {{ tweet.text }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+    <div class="modal fade" id="newTweet" tabindex="-1" aria-labelledby="newTweetLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newTweetLabel">New Message</h5>
+                </div>
+
+                <div class="modal-body">
+                    <form action="{{ url_for('post_tweet') }}" method="POST">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <div class="form-group">
+                                    {{ form.csrf_token }}
+
+                                    {{ form.text(class='form-control', rows=6, required='required', placeholder='Enter your new message here.') }}
+                                </div>
+                                <div class="form-group">
+                                    By posting on our platform, you agree to our <a href="#">Terms and Conditions</a>.
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <i class="fa-solid fa-ban-circle"></i> Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-send"></i> Post
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
