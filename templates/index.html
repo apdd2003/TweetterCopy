@@ -1,1 +1,27 @@
 {% extends "base.html" %}
+{% block content %}
+<div class="card" style="width: 24rem;">
+  <img src="{{ url_for('static', filename='hometweet.jpg')}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Twitter Copy: A Flask Project</h5>
+    <p class="card-text">This project is done to improve my self-taught flask skills. The project includes following functionalities:
+      <ul>
+      <li>
+          User and it's content management in Database
+      </li>
+      <li>
+          Profile section
+      </li>
+       <li>
+          Timeline of tweets
+      </li>
+       <li>
+          Following and Followers mechanism
+      </li>
+  </ul>
+    </p>
+    <a class="btn btn-primary" href="https://github.com/apdd2003/TweetterCopy" target="_blank">Github Link</a>
+  </div>
+</div>
+
+{% endblock %}
