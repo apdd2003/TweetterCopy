@@ -1,0 +1,74 @@
+{% extends "base2.html" %}
+
+{% block content %}
+
+		<!-- Home -->
+			<article id="top" class="wrapper style1">
+				<div class="container">
+					<div class="row">
+						<div class="col-4 col-5-large col-12-medium">
+							<span class="image fit">
+								{% if current_user.is_authenticated %}
+								<img src="{{url_for('static', filename=current_user.image)}}" alt="profile pic" style="height: 220px; width: 220px;" />
+								{% else %}
+								<img src="{{url_for('static', filename='imgs/img.png')}}" alt="profile pic" style="height: 220px; width: 220px;" />
+								{% endif %}
+							</span>
+						</div>
+						<div class="col-8 col-7-large col-12-medium">
+							<header>
+								<h1>Welcome
+									{% if not current_user.is_authenticated %}
+									<strong>Guest</strong>.
+									{% else %}
+									<strong>{{current_user.username}}</strong>.
+									{% endif %}
+
+								</h1>
+							</header>
+							<p>This is<strong> TwitterCopy - A Flask Project</strong>, a fully responsive/dynamic site.</p>
+							<p>This project is done to improve my self-taught flask skills. The project includes following functionalities:</p>
+							<ul>
+							  <li>
+								  User and it's content management in Database
+							  </li>
+							  <li>
+								  Profile section
+							  </li>
+							   <li>
+								  Timeline of tweets
+							  </li>
+							   <li>
+								  Following and Followers mechanism
+							  </li>
+						  </ul>
+							<a href="https://github.com/apdd2003/TweetterCopy" target="_blank" class="button large">Github Link</a>
+						</div>
+					</div>
+				</div>
+			</article>
+
+
+
+<article>
+
+						<div class="col-12 text-center">
+							<hr />
+							<h3>Find me on ...</h3>
+							<ul class="social">
+								<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+								<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+								<li><a href="#" class="icon brands fa-tumblr"><span class="label">Tumblr</span></a></li>
+								<li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
+								<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+
+							</ul>
+							<hr />
+						</div>
+
+			</article>
+
+		<!-- Scripts -->
+{% endblock %}
