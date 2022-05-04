@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 {% block content %}
 <div class="container">
@@ -42,10 +42,10 @@
                     {% endif %}
                 </ul>
                 <ul class="list-group">
-                    <a class="list-group-item" data-toggle="modal" href="{{ url_for('post_tweet') }}"
-                       data-backdrop="static" data-keboard="false">
-                        <i class="fa-solid fa-plus-sign"></i> Post New Tweet
-                    </a>
+
+                     <button type="button" class="btn btn-link list-group-item" data-bs-toggle="modal" data-bs-target="#newTweet">
+                       <i class="fa-solid fa-plus"></i>Post New Tweet
+                    </button>
 
 
                 </ul>
@@ -103,7 +103,42 @@
         </div>
     </div>
 
+ <div class="modal fade" id="newTweet" tabindex="-1" aria-labelledby="newTweetLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newTweetLabel">New Message</h5>
+                </div>
+<form action="{{ url_for('post_tweet') }}" method="POST">
+                <div class="modal-body">
 
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <div class="form-group">
+                                    {{ form.csrf_token }}
+
+                                    {{ form.text(class='form-control', rows=6, required='required', placeholder='Enter your new message here.') }}
+                                </div>
+                                <div class="form-group">
+                                    By posting on our platform, you agree to our <a href="#">Terms and Conditions</a>.
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-ban-circle"></i> Close
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-send"></i> Post
+                    </button>
+                </div>
+</form>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

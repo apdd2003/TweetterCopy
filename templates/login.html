@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 {% block content %}
 <div class="container loginform mt-5 d-flex justify-content-center" >
@@ -13,8 +13,9 @@
 
 
         {{form.submit( class="btn btn-dark mb-4 ")}}
-
+     <p>Not signed up?</p> <a class=" button" href="{{url_for('register')}}">Register Now </a>
     </form>
+
 
 </div>
 

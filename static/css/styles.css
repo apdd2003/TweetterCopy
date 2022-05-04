@@ -2,8 +2,6 @@
 
 body {
     font-family: Ubuntu, verdana, georgia, serif, sans-serif;
-    background-image: url('bg-dark.jpg');
-    background-size:cover;
     min-height: 120vh;
     color: #585757;
 
@@ -14,6 +12,10 @@ a{
 }
 form{
     padding-bottom : 10px
+}
+.btn-link{
+    color: #ff0000 !important;
+
 }
 .card{
     padding-top: 3%;

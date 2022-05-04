@@ -84,7 +84,7 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register/', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         flash('You need to logout first to register', 'danger')
@@ -151,8 +151,9 @@ def profile(username):
                            display_unfollow=display_unfollow)
 
 
-@app.route('/timeline', defaults={'username' : None})
+@app.route('/timeline', defaults={'username': None})
 @app.route('/timeline/<username>')
+@login_required
 def timeline(username):
     form = TweetForm()
 
