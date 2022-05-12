@@ -80,6 +80,8 @@ def login():
         if check_password_hash(user.password, form.password.data):
             login_user(user)
             return redirect(url_for('index'))
+        else:
+            flash('Username or Password is incorrect', 'danger')
 
     return render_template('login.html', form=form)
 
